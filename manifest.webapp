@@ -8,6 +8,6 @@
         "url" : "https://github.com/yammmt/"
     },
     "icons" : {
-    }, 
-    "orientation" : [ "landscape-primary" ]
+    },
+    "fullscreen": "true"
 }
