@@ -19,11 +19,11 @@
 (function() {
  
 	var deviceOrientation = {};
-	var screenOrientation = window.orientation || 0;
     var deviceMotion = {};
  
 	function onDeviceOrientationChangeEvent(evt) {
 		deviceOrientation = evt;
+		deviceOrientation.angle = getOrientation();
 	}
 	window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
  
@@ -44,11 +44,6 @@
 		//   return 90;
 		return window.orientation || 0;
 	}
- 
-	function onScreenOrientationChangeEvent() {
-		screenOrientation = getOrientation();
-	}
-	window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
  
     function handleMotionEvent(evt) {
         deviceMotion = evt;
@@ -111,11 +106,10 @@
 					THREE.Math.degToRad(deviceOrientation.beta) : 0; // X'
 				this.gamma = deviceOrientation.gamma ?
 					THREE.Math.degToRad(deviceOrientation.gamma) : 0; // Y''
-				this.orient = screenOrientation ?
-					THREE.Math.degToRad(screenOrientation) : 0; // O
+				this.orient = deviceOrientation.angle ?
+					THREE.Math.degToRad(deviceOrientation.angle) : 0; // O
                     
                 // for Firefox
-                console.log(deviceOrientation.alpha, deviceOrientation.beta, deviceOrientation.gamma)
                 this.gamma = (this.isFirefox && deviceMotion.accelerationIncludingGravity.z < 0) ?
                     - this.gamma : this.gamma;
  
